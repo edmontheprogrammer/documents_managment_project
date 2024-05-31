@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 
 from pathlib import Path
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -32,6 +33,9 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     # Installed 3rd party apps by Edmon
+    # Make sure to add these required apps
+    'django.contrib.sites',
+    # Django-allauth apps
     'allauth',
     'allauth.account',
     'rest_framework',
@@ -43,9 +47,7 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
 
-    # Created apps by Edmon
     "portal",
-
 
 ]
 
@@ -93,11 +95,15 @@ AUTHENTICATION_BACKENDS = [
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
-ACCOUNT_AUTHENTICATION_METHOD = "email"
+
+# You can set the login method (ACCOUNT_AUTHENTICATION_METHOD) by "username"
+# or "email address" for the user. This project will set "ACCOUNT_AUTHENTICATION_METHOD"
+# for extra security measures and to authenticate users better.
+# ACCOUNT_AUTHENTICATION_METHOD = "email"
 
 # Email required for activation: This option allows you to set whether the email
 # address should be verified to register. Set False to disable email requirement.
-ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_EMAIL_REQUIRED = False
 
 WSGI_APPLICATION = "backend.wsgi.application"
 
@@ -160,6 +166,13 @@ USE_TZ = True
 
 STATIC_URL = "static/"
 
+# This line is added by Edmon to configure Static files for Boostrap CSS library
+# STATICFILES_DIRS = [
+#     BASE_DIR / "static",
+# ]
+# STATIC_ROOT = os.path.join(BASE_DIR, "static")
+
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
@@ -201,5 +214,12 @@ ACCOUNT_LOGIN_ATTEMPTS_LIMIT = 5
 # By default, allauth redirects login to /accounts/profile/ URL
 # and logout to the localhost:8000 or any localhost homepage.
 
-# ACCOUNT_LOGOUT_REDIRECT_URL = '/accounts/login/'
-# LOGIN_REDIRECT_URL = '/accounts/email/'
+ACCOUNT_LOGOUT_REDIRECT_URL = '/accounts/login/'
+LOGIN_REDIRECT_URL = '/accounts/email/'
+
+# Sets the ID of your site's URL.
+SITE_ID = 1
+
+
+# Default primary key field type
+# https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
