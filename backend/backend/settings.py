@@ -34,6 +34,7 @@ INSTALLED_APPS = [
     # Installed 3rd party apps by Edmon
     'allauth',
     'allauth.account',
+    'rest_framework',
 
     "django.contrib.admin",
     "django.contrib.auth",
@@ -41,6 +42,9 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+
+    # Created apps by Edmon
+    "portal",
 
 
 ]
@@ -91,6 +95,8 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 ACCOUNT_AUTHENTICATION_METHOD = "email"
 
+# Email required for activation: This option allows you to set whether the email
+# address should be verified to register. Set False to disable email requirement.
 ACCOUNT_EMAIL_REQUIRED = True
 
 WSGI_APPLICATION = "backend.wsgi.application"
@@ -158,3 +164,42 @@ STATIC_URL = "static/"
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+
+# Additional Basic Allauth Configurations:
+
+# Email confirmation expiry: Sets the number of days within which an account should be activated.
+ACCOUNT_EMAIL_CONFIRMATION_EXPIRE_DAYS = 7
+
+
+# Account email verification: This option can be used to set whether an email verification
+# is necessary for a user to log in after he registers an account. You can use ‘mandatory’
+# to block a user from logging in until the email gets verified. You can set options
+# for sending the email but allowing the user to log in without an email.
+# You can also set none to send no verification email. (Not Recommended)
+ACCOUNT_EMAIL_VERIFICATION = "none"
+
+
+# Login Attempt Limit: This is an important feature which can be used to prevent
+# brute force attacks on the user login page on your website.
+# The maximum number of login attempts can be set,
+# and the user gets blocked from logging back in until a timeout.
+# This feature makes use of ACCOUNT_LOGIN_ATTEMPTS_TIMEOUT setting.
+ACCOUNT_LOGIN_ATTEMPTS_LIMIT = 5
+
+
+# Login Attempt Limit timeout: This setting should be used with
+# setting ACCOUNT_LOGIN_ATTEMPTS_LIMIT . The value set is in seconds from the last
+# unsuccessful login attempt. Please note that this does not protect admin login.
+
+# ACCOUNT_LOGIN_ATTEMPTS_TIMEOUT = 86400 # 1 day in seconds
+
+
+# Login and Logout URL redirection: When user logs in or logs out,
+# you might want to redirect the user to a particular URL or page and
+# the below settings can be used to set that URL.
+# By default, allauth redirects login to /accounts/profile/ URL
+# and logout to the localhost:8000 or any localhost homepage.
+
+# ACCOUNT_LOGOUT_REDIRECT_URL = '/accounts/login/'
+# LOGIN_REDIRECT_URL = '/accounts/email/'
