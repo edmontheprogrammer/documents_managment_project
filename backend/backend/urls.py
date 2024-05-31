@@ -17,20 +17,15 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 
-from portal import views
-
+# Old URLpatterns settings
 urlpatterns = [
-    path("admin/", admin.site.urls),
-    # Notes on allauths URLs:
-    # The links "/accounts/login/", "/accounts/signup/", are publically accessiable
-    # The links "/accounts/logout/",
-    # Password Management links ("account_email", "account_email") are private and requires users authentications
-    # for new users to have access to it.
-    path('accounts/', include('allauth.urls')),
-    path('accounts/profile/', views.profile, name="profile"),
+    path('', include('portal.urls')),
+    path('admin/', admin.site.urls),
 
-    # URL for the django REST framework
-    # path('api-auth/', include('rest_framework.urls')),
-    # URL for the django-rest-authtoken
-    # path('auth/', include('rest_authtoken.urls')),
+    # This new line is used to route the allauth app’s URL file.
+    # The django-allauth app comes with a set of URLs for its HTML pages.
+    #  Some URLs provided by allauth include: account_login, account_logout,
+    # account_set_password, among others. Check out the django-allauth product
+    # documentation for more information.
+    path('accounts/', include('allauth.urls')),
 ]
