@@ -7,16 +7,22 @@
 <div class="HomePage">
   <h1>Hello World!</h1>
   <h1>Documents Managment Project (DMP) - Bootstrap Web Client</h1>
-  <h1>Home Page 2</h1>
+  <h1>Home Page </h1>
   <h3 style="center">Welcome Home</h3>
   <div class="container text-dark mt-5">
     <div class="row justify-content-md-center">
       <div class="col md-5 p-3">
         {% if user.is_authenticated%}
         <p>Welcome, {{user.username}}</p>
-        <a href="http://127.0.0.1:8000/accounts/logout/">Logout</a>
+        <br/>
+        <a href="{% url "account_logout" %}">Logout via allauth account_logout URL</a>
         {%else%}
-        <p>Please <a href="http://127.0.0.1:8000/accounts/login/">Login</a></p>
+        <br/>
+        <p><button type="button" class="btn btn-info">Please <a href="{% url "account_login" %}">Login via allauth account_login URL (Login Page)</a></button></p>
+        <br/>
+        <p> <button type="button" class="btn btn-info"> <a href="{% url "account_signup" %}">Signup via allauth account_signup URL (Create an Account Page)</a> </button></p>
+          <br/>
+          <p><button type="button" class="btn btn-info"> <a href="{% url "account_reset_password" %}">Forgot password via allauth account_reset_password URL (Password Reset) Forgot Your Password?</a></button></p>
         {%endif%}
       </div>
     </div>

@@ -190,7 +190,7 @@ ACCOUNT_EMAIL_CONFIRMATION_EXPIRE_DAYS = 7
 # to block a user from logging in until the email gets verified. You can set options
 # for sending the email but allowing the user to log in without an email.
 # You can also set none to send no verification email. (Not Recommended)
-ACCOUNT_EMAIL_VERIFICATION = "none"
+# ACCOUNT_EMAIL_VERIFICATION = "none"
 
 
 # Login Attempt Limit: This is an important feature which can be used to prevent
@@ -214,8 +214,14 @@ ACCOUNT_LOGIN_ATTEMPTS_LIMIT = 5
 # By default, allauth redirects login to /accounts/profile/ URL
 # and logout to the localhost:8000 or any localhost homepage.
 
-ACCOUNT_LOGOUT_REDIRECT_URL = '/accounts/login/'
-LOGIN_REDIRECT_URL = '/accounts/email/'
+# These are the default login and logout redirects for allauths.
+# ACCOUNT_LOGOUT_REDIRECT_URL = '/accounts/login/'
+# LOGIN_REDIRECT_URL = '/accounts/email/'
+
+# These are the custom login and logout redirects for allauths for
+# managming users accounts.
+LOGIN_REDIRECT_URL = "home"
+ACCOUNT_LOGOUT_REDIRECT_URL = "home"
 
 # Sets the ID of your site's URL.
 SITE_ID = 1
