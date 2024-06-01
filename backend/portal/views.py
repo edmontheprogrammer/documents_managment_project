@@ -2,6 +2,13 @@
 from django.shortcuts import render
 
 
-def homepage(request):
-    return render(request=request,
-                  template_name='home.html',)
+def home(request):
+    return render(request, 'home.html', {})
+
+
+def about(request):
+    return render(request, 'about.html', {})
+
+
+def contact(request):
+    return render(request, 'contact.html', {})
