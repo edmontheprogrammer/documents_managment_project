@@ -20,6 +20,8 @@ import Home from "./pages/Home";
 import Contact from "./pages/Contact";
 import NoPage from "./pages/NoPage";
 import About from "./pages/About";
+import Signin from "./pages/Signin";
+import CreateAccount from "./pages/CreateAccount";
 
 function App() {
   return (
@@ -29,6 +31,8 @@ function App() {
           <Route index element={<Home />} />
           <Route path="about" element={<About />} />
           <Route path="contact" element={<Contact />} />
+          <Route path="signin" element={<Signin />} />
+          <Route path="createaccount" element={<CreateAccount />} />
           <Route path="*" element={<NoPage />} />
         </Route>
       </Routes>
