@@ -27,5 +27,5 @@ urlpatterns = [
     #  Some URLs provided by allauth include: account_login, account_logout,
     # account_set_password, among others. Check out the django-allauth product
     # documentation for more information.
-    path('accounts/', include('allauth.urls')),
+    # path('accounts/', include('allauth.urls')),
 ]

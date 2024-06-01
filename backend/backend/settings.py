@@ -34,17 +34,17 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS = [
     # Installed 3rd party apps by Edmon
     # Make sure to add these required apps
-    'django.contrib.sites',
+    'django.contrib.sites',  # This is need for allauth
     # Django-allauth apps
-    'allauth',
-    'allauth.account',
+    'allauth',  # This is need for allauth
+    'allauth.account',  # This is need for allauth
     'rest_framework',
 
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
     "django.contrib.sessions",
-    "django.contrib.messages",
+    "django.contrib.messages",  # This is need for allauth
     "django.contrib.staticfiles",
 
     "portal",
@@ -85,9 +85,11 @@ TEMPLATES = [
 
 AUTHENTICATION_BACKENDS = [
 
+    # Log using the built-in Django
     # Needed to login by username in Django admin, regardless of `allauth`
     'django.contrib.auth.backends.ModelBackend',
 
+    # Login Using Things like Email address, Gmail Account, Facebook Account, Github Account, and Others
     # `allauth` specific authentication methods, such as login by email
     'allauth.account.auth_backends.AuthenticationBackend',
 
@@ -181,17 +183,29 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 # Additional Basic Allauth Configurations:
 
-# Email confirmation expiry: Sets the number of days within which an account should be activated.
-ACCOUNT_EMAIL_CONFIRMATION_EXPIRE_DAYS = 7
+# "ACCOUNT_AUTHENTICATION_METHOD" (="username" | "email" | "username_email")
+# Specifices the login method to use - whether the user logs in by entering their username, e-mail address,
+# or either one of both. Setting this to "email" requires ACCOUNT_EMAIL_REQUIRED=True
+ACCOUNT_AUTHENTICATION_METHOD = "username_email"
 
+# This setting confirms the User's email account as soon as the user clicks the link on the email address
+# thier acccount is confirmed.
+ACCOUNT_CONFIRM_EMAIL_ON_GET = True
+
+# This allows users to sign up using their email account
+ACCOUNT_EMAIL_REQUIRED = True
 
 # Account email verification: This option can be used to set whether an email verification
 # is necessary for a user to log in after he registers an account. You can use ‘mandatory’
 # to block a user from logging in until the email gets verified. You can set options
 # for sending the email but allowing the user to log in without an email.
 # You can also set none to send no verification email. (Not Recommended)
-# ACCOUNT_EMAIL_VERIFICATION = "none"
+# Determines the e-mail verificaiton method during signup - choose one of
+# "mandatory", "optional" or "none"
+ACCOUNT_EMAIL_VERIFICATION = "mandatory"
 
+# Email confirmation expiry: Sets the number of days within which an account should be activated.
+ACCOUNT_EMAIL_CONFIRMATION_EXPIRE_DAYS = 7
 
 # Login Attempt Limit: This is an important feature which can be used to prevent
 # brute force attacks on the user login page on your website.
@@ -200,12 +214,26 @@ ACCOUNT_EMAIL_CONFIRMATION_EXPIRE_DAYS = 7
 # This feature makes use of ACCOUNT_LOGIN_ATTEMPTS_TIMEOUT setting.
 ACCOUNT_LOGIN_ATTEMPTS_LIMIT = 5
 
+# The default behavior is not log users in and to redirect them to
+# "ACCOUNT_EMAIL_CONFIRMATION_ANONYMOUS_REDIRECT_URL".
+# By changing this setting to "True", users will automatically be logged in once they
+# confirm their email address. Note however that this only works when confirming the email
+# address "immediately after signing up", assuming users didn't close their browser or used some sort of
+# private browsing mode.
+ACCOUNT_LOGIN_ON_EMAIL_CONFIRMATION = True
 
-# Login Attempt Limit timeout: This setting should be used with
-# setting ACCOUNT_LOGIN_ATTEMPTS_LIMIT . The value set is in seconds from the last
-# unsuccessful login attempt. Please note that this does not protect admin login.
+# ACCOUNTLOGOUT_ON_GET ; determines whether or not the user is automatically logged out by a GET request
+# GET is not designed to modify the server state, and in this case it can be dangerous.
+ACCOUNT_LOGOUT_ON_GET = True
 
-# ACCOUNT_LOGIN_ATTEMPTS_TIMEOUT = 86400 # 1 day in seconds
+
+# ACCOUNT_LOGIN_ON_PASSWORD_RESET (False)
+# By changing this setting to "True", users will automatically be logged in once they have reset their
+# password. By default their are redirected to the password reset done page.
+# Note 3: It is better to leave this setting to "False" or on default setting because we want
+# to check and make sure the user's new password workds and they can access the website once they change
+# to new password or once they reset their password.
+ACCOUNT_LOGIN_ON_PASSWORD_RESET = False
 
 
 # Login and Logout URL redirection: When user logs in or logs out,
@@ -223,9 +251,57 @@ ACCOUNT_LOGIN_ATTEMPTS_LIMIT = 5
 LOGIN_REDIRECT_URL = "home"
 ACCOUNT_LOGOUT_REDIRECT_URL = "home"
 
+# ACCOUNT_PRESERVE_USERNAME_CASING = False
+# This setting determines whether the username is stored in lowercase (False) or whether it its casing
+# to be preserved (True).
+# Note 1: Setting this to "False" allows us to have Users' username in all lowercase letters.
+ACCOUNT_PRESERVE_USERNAME_CASING = False
+
+# ACCOUNT_SESSION_REMEMBER = False
+# Controls the life time of the session. Set to "None" to ask the user ("Remember me?"),
+# "False" to not remember, and "True" to always remember
+ACCOUNT_SESSION_REMEMBER = False
+
+# ACCOUNT_USERNAME_BLACKLIST (=[])
+# "ACCOUNT_USERNAME_BLACKLIST" is a list of usernames that can't be used by users on the website
+# or portal web app
+ACCOUNT_USERNAME_BLACKLIST = [
+    "edmon",
+    "edmontheprogrammer",
+    "god",
+    "admin",
+    "administrator",
+    "superuser",
+    "createsuperuser"]
+
+
+# ACCOUNT_USERNAME_MIN_LENGTH (=1)
+# An integer specifying the minimum allowed length of a username
+ACCOUNT_USERNAME_MIN_LENGTH = 3
+
+
+
+
+# Login Attempt Limit timeout: This setting should be used with
+# setting ACCOUNT_LOGIN_ATTEMPTS_LIMIT . The value set is in seconds from the last
+# unsuccessful login attempt. Please note that this does not protect admin login.
+
+# ACCOUNT_LOGIN_ATTEMPTS_TIMEOUT = 86400 # 1 day in seconds
+
 # Sets the ID of your site's URL.
+# The Django Project or Django Framework can have multiple websites.
+# "SITE_ID" is the unique identifier for each web app or each website that you create.
+# "SITE_ID" is the the primary key for each Django web app you create.
+# This line identifies the "portal" web app with a site id of 1 "SITE_ID = 1"
 SITE_ID = 1
 
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
+
+
+
+# List of Django Projects Requriments 
+# django 
+# devtool 
+# psycopg2

@@ -30,12 +30,23 @@
           <a class="nav-link" href="{% url 'account_login' %}"
             >account_login URL page via allauth - Sign in Page</a>
         </li>
-
         <li class="nav-item">
           <a class="nav-link" href="{% url "account_signup" %}">
             account_signup URL page via allauth - Create an account Page
           </a>
         </li>
+        <li class="nav-item">
+            {% if user.is_authenticated %}
+              Hi {{  user.username }}
+            <a class="nav-link d-inline" href="{% url "account_logout" %} ">Logout?
+            {% else %}
+              Hi Guest!
+              <a class="nav-link d-inline" href="{% url "account_login" %} ">Login?
+
+            {% endif %}
+          </a>
+        </li>
+
       </ul>
     </div>
   </div>

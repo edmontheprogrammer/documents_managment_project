@@ -1,3 +1,4 @@
+from django.contrib.auth.decorators import login_required
 
 from django.shortcuts import render
 
@@ -14,9 +15,11 @@ def contact(request):
     return render(request, 'contact.html', {})
 
 
-def signinpage(request):
-    return render(request, 'signin.html', {})
+@login_required
+def openAccountFormPage(request):
+    return render(request, 'open-account.html', {})
 
 
-def createaccountpage(request):
-    return render(request, 'createaccount.html', {})
+@login_required
+def closeAccountFormPage(request):
+    return render(request, 'close-account.html', {})
