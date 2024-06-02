@@ -123,7 +123,7 @@ WSGI_APPLICATION = "backend.wsgi.application"
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'documents_managment_project_db_final1',
+        'NAME': 'documents_managment_project_db_final3',
         'USER': 'postgres',
         'PASSWORD': 'postgres',
         'HOST': 'localhost',
@@ -166,7 +166,15 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
+# Note 1: "static" in Django refers to static files of our application like "CSS", "JavaScript" and "Images"
 STATIC_URL = "static/"
+
+# Note 2: "Media" refers to "files uploaded by the users"
+# "MEDIA_URL" refers to the link or URL where we can find the users uploaded files
+MEDIA_URL = "/media/"
+
+# Note 3: "" This is telling Django where these media files are stored in the file system
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # This line is added by Edmon to configure Static files for Boostrap CSS library
 # STATICFILES_DIRS = [
@@ -280,8 +288,6 @@ ACCOUNT_USERNAME_BLACKLIST = [
 ACCOUNT_USERNAME_MIN_LENGTH = 3
 
 
-
-
 # Login Attempt Limit timeout: This setting should be used with
 # setting ACCOUNT_LOGIN_ATTEMPTS_LIMIT . The value set is in seconds from the last
 # unsuccessful login attempt. Please note that this does not protect admin login.
@@ -300,8 +306,7 @@ SITE_ID = 1
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 
-
-# List of Django Projects Requriments 
-# django 
-# devtool 
+# List of Django Projects Requriments
+# django
+# devtool
 # psycopg2

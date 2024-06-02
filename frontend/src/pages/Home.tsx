@@ -21,7 +21,7 @@ const Home = () => {
         <p>
           Secure simple, and easy to use documents managment solution. We
           develop custom version of your documents and allow you to focus on
-          clients.
+          clients. Leno Unvu
         </p>
       </div>
       <div>
