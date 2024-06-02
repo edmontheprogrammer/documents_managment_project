@@ -1,12 +1,23 @@
-{% extends 'base.html' %} 
-{% block content %}
+{% extends 'base.html' %} {% block content %}
 <style>
   .openAccountPage {
     background-color: LightPink;
   }
 </style>
 <div class="openAccountPage">
-  <h1>open account Page</h1>
+  <h1>Open Account Page</h1>
+  <h1>Telecommunications Application Form</h1>
+
+  <h2>{{ note }}</h2>
+
+  <form
+    enctype="multipart/form-data"
+    action="{% url 'open-account-form-page' %}"
+    method="post"
+  >
+    {% csrf_token %} {{ telecommunicationsform }}
+    <input type="submit" value="Open New Telecommunications Account" />
+  </form>
 </div>
 
 {% endblock %}
