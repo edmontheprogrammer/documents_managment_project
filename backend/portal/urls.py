@@ -27,6 +27,12 @@ urlpatterns = [
 
     path('open-account-form-page/', views.openAccountFormPage,
          name='open-account-form-page'),
+    path('open-account-form-page/<int:pk>', views.edit_openAccountFormPage,
+         name='edit-open-account-form-page'),
+
+
     path('close-account-form-page/', views.closeAccountFormPage,
          name='close-account-form-page'),
+
+
 ]

@@ -4,6 +4,8 @@ from django.shortcuts import render
 
 from .forms import TelecommunicationsForm
 
+from .models import Telecommunications
+
 
 def home(request):
     return render(request, 'home.html', {})
@@ -25,14 +27,41 @@ def openAccountFormPage(request):
         filled_form = TelecommunicationsForm(request.POST, request.FILES)
         if filled_form.is_valid():
             # This line is saving the Model Form into the database: "filled_form.save()"
-            filled_form.save()
+            created_telecommunications = filled_form.save()
+            created_telecommunications_pk = created_telecommunications.id
             note = "Thanks %s %s for completing the application form for opening an account with us. Our team is processing your request! DMP Team" % (
                 filled_form.cleaned_data['first_name'], filled_form.cleaned_data['last_name'],)
             new_form = TelecommunicationsForm()
-            return render(request, "open-account.html", {"telecommunicationsform": new_form, 'note': note})
+            return render(request, "open-account.html", {'created_telecommunications_pk': created_telecommunications_pk,
+                                                         "telecommunicationsform": new_form,
+                                                         'note': note})
     else:
         form = TelecommunicationsForm()
         return render(request, 'open-account.html', {'telecommunicationsform': form})
+
+
+def edit_openAccountFormPage(request, pk):
+    telecommunications = Telecommunications.objects.get(pk=pk)
+    form = TelecommunicationsForm(instance=telecommunications)
+    if request.method == 'POST':
+        filled_form = TelecommunicationsForm(
+            request.POST, instance=telecommunications)
+        if filled_form.is_valid():
+            filled_form.save()
+            form = filled_form
+            note = "New Account Form has been updated"
+            return render(
+                request,
+                'edit-open-account.html',
+                {'note': note,
+                 'telecommunicationsform': form,
+                 'telecommunications': telecommunications}
+            )
+    return render(
+        request,
+        'edit-open-account.html',
+        {'telecommunicationsform': form, 'telecommunications': telecommunications}
+    )
 
 
 @login_required
