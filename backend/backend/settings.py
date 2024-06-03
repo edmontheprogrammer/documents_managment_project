@@ -38,6 +38,8 @@ INSTALLED_APPS = [
     # Django-allauth apps
     'allauth',  # This is need for allauth
     'allauth.account',  # This is need for allauth
+
+    # This line adds django restframework in our project
     'rest_framework',
 
     "django.contrib.admin",
@@ -123,7 +125,7 @@ WSGI_APPLICATION = "backend.wsgi.application"
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'documents_managment_project_db_final3',
+        'NAME': 'documents_managment_project_db_final5',
         'USER': 'postgres',
         'PASSWORD': 'postgres',
         'HOST': 'localhost',
