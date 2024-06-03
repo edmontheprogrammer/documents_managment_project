@@ -1,0 +1,28 @@
+{% extends 'base.html' %} 
+{% block content %}
+
+<h2> {{ note }} </h2>
+
+<style>
+  .EditopenAccountPage {
+    background-color: yellow;
+  }
+</style>
+<div class="EditopenAccountPage">
+  <h1>Edit Open Account Page</h1>
+
+  <form
+    enctype="multipart/form-data"
+    action="{% url 'edit-open-account-form-page' telecommunications.id  %}"
+    method="post"
+  >
+    {% csrf_token %} 
+    {{ telecommunicationsform }}
+    <input type="submit" value= "Edit New Telecommunications Account Form" />
+  </form>
+  <br />
+  <br />
+  <br />
+</div>
+
+{% endblock %}

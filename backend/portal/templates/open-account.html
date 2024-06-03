@@ -11,6 +11,11 @@
 
   <h2>{{ note }}</h2>
 
+  {% if created_telecommunications_pk %}
+  <a href="{% url 'edit-open-account-form-page' created_telecommunications_pk  %}">
+    Edit Open Account Form
+  </a>
+  {% endif %}
   <form
     enctype="multipart/form-data"
     action="{% url 'open-account-form-page' %}"
@@ -19,9 +24,6 @@
     {% csrf_token %} {{ telecommunicationsform }}
     <input type="submit" value="Open New Telecommunications Account" />
   </form>
-  <br />
-  <br />
-  <br />
   <br />
   <br />
   <br />
