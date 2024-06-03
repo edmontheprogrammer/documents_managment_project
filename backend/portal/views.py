@@ -31,10 +31,15 @@ def openAccountFormPage(request):
             created_telecommunications_pk = created_telecommunications.id
             note = "Thanks %s %s for completing the application form for opening an account with us. Our team is processing your request! DMP Team" % (
                 filled_form.cleaned_data['first_name'], filled_form.cleaned_data['last_name'],)
-            new_form = TelecommunicationsForm()
-            return render(request, "open-account.html", {'created_telecommunications_pk': created_telecommunications_pk,
-                                                         "telecommunicationsform": new_form,
-                                                         'note': note})
+            filled_form = TelecommunicationsForm()
+        else:
+            note = "New Account Application Form has failed. Try again."
+            created_telecommunications_pk = None
+
+
+        return render(request, "open-account.html", {'created_telecommunications_pk': created_telecommunications_pk,
+                                                     "telecommunicationsform": filled_form,
+                                                     'note': note})
     else:
         form = TelecommunicationsForm()
         return render(request, 'open-account.html', {'telecommunicationsform': form})
