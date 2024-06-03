@@ -20,6 +20,7 @@
     enctype="multipart/form-data"
     action="{% url 'open-account-form-page' %}"
     method="post"
+    novalidate
   >
     {% csrf_token %} {{ telecommunicationsform }}
     <input type="submit" value="Open New Telecommunications Account" />
